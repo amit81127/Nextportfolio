@@ -1,48 +1,81 @@
 "use client";
 import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, Award, Code, Rocket } from "lucide-react";
+import {
+  GraduationCap,
+  Code,
+  Braces,
+  Rocket,
+  Laptop,
+  Briefcase,
+  Award,
+  Cpu,
+} from "lucide-react";
 
 export default function Timeline() {
   const milestones = [
     {
-      year: "2023",
-      title: "Started B.Tech in Computer Science",
+      year: "2022",
+      title: "The Beginning of My Coding Journey",
       description:
-        "Enrolled at Axis College, Kanpur under AKTU University. Focused on mastering Data Structures, Algorithms, and Full Stack Development.",
-      icon: <GraduationCap className="w-6 h-6 text-indigo-400" />,
-      color: "from-indigo-500 to-purple-500",
+        "Started exploring programming fundamentals and learned C and C++ basics. Developed curiosity for how technology powers everything around us.",
+      icon: <GraduationCap className="w-6 h-6 text-blue-400" />,
+      color: "from-blue-500 to-indigo-500",
     },
     {
-      year: "2024",
-      title: "3rd Place – Gandhi Giri Tech Fest",
+      year: "2023",
+      title: "Frontend Foundations — HTML, CSS, JS",
       description:
-        "Built 'Third Eye for Blind Persons' — an IoT-based assistive device using ultrasonic sensors and NodeMCU.",
-      icon: <Award className="w-6 h-6 text-pink-400" />,
+        "Learned to build responsive web pages using HTML5, CSS3, and JavaScript. Gained strong understanding of DOM manipulation and design principles.",
+      icon: <Laptop className="w-6 h-6 text-pink-400" />,
       color: "from-pink-500 to-red-500",
     },
     {
-      year: "2024",
-      title: "Deloitte Virtual Internship",
+      year: "2023",
+      title: "Diving into DSA & Problem Solving",
       description:
-        "Completed Deloitte’s virtual internship program on business technology problem-solving and software project planning.",
-      icon: <Briefcase className="w-6 h-6 text-yellow-400" />,
-      color: "from-yellow-500 to-orange-500",
+        "Started solving Data Structure and Algorithm problems in Java. Focused on arrays, recursion, sorting, searching, and linked lists to strengthen logic building.",
+      icon: <Braces className="w-6 h-6 text-yellow-400" />,
+      color: "from-yellow-400 to-orange-500",
     },
     {
       year: "2024",
-      title: "Google Cloud Arcade Legend",
+      title: "Full Stack Developer Journey (MERN)",
       description:
-        "Earned Google Cloud’s Arcade Legend badge by completing advanced labs in compute, networking, and storage.",
-      icon: <Rocket className="w-6 h-6 text-cyan-400" />,
-      color: "from-cyan-500 to-blue-500",
+        "Mastered MongoDB, Express.js, React.js, and Node.js. Built several full-stack apps including HackChat, Trip Planner, and a personal portfolio using Next.js.",
+      icon: <Code className="w-6 h-6 text-green-400" />,
+      color: "from-green-500 to-emerald-500",
+    },
+    {
+      year: "2024",
+      title: "Projects & Hackathons",
+      description:
+        "Developed IoT and AI-based projects such as 'Third Eye for Blind Persons' and 'RetailMate'. Participated in hackathons showcasing innovation and teamwork.",
+      icon: <Award className="w-6 h-6 text-pink-400" />,
+      color: "from-pink-500 to-rose-500",
+    },
+    {
+      year: "2024",
+      title: "Internships & Industry Exposure",
+      description:
+        "Completed Deloitte Virtual Internship in Tech Consulting and Cloud programs like Google Cloud Arcade & AWS Practitioner, gaining professional exposure.",
+      icon: <Briefcase className="w-6 h-6 text-yellow-300" />,
+      color: "from-yellow-400 to-amber-500",
     },
     {
       year: "2025",
-      title: "Full Stack Developer Journey",
+      title: "Advanced DSA & System Design",
       description:
-        "Built multiple projects using Next.js, MongoDB, and Node.js, including HackathonMeet, Trip App, and portfolio redesign.",
-      icon: <Code className="w-6 h-6 text-emerald-400" />,
-      color: "from-emerald-500 to-green-500",
+        "Focusing on mastering advanced DSA topics like graphs, dynamic programming, and trees. Learning scalable architecture, API design, and system design fundamentals.",
+      icon: <Cpu className="w-6 h-6 text-indigo-400" />,
+      color: "from-indigo-500 to-blue-500",
+    },
+    {
+      year: "2025",
+      title: "Becoming a Complete Web Engineer",
+      description:
+        "Continuing to enhance skills in Next.js 14, TypeScript, and DevOps while contributing to open-source and mentoring others in web development and DSA.",
+      icon: <Rocket className="w-6 h-6 text-emerald-400" />,
+      color: "from-emerald-500 to-cyan-500",
     },
   ];
 
@@ -56,10 +89,10 @@ export default function Timeline() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          My <span className="text-indigo-400">Timeline</span> 📅
+          My <span className="text-indigo-400">Development Journey</span> 🚀
         </motion.h2>
 
-        {/* Timeline Line */}
+        {/* Timeline */}
         <div className="relative border-l-2 border-gray-700 ml-6">
           {milestones.map((item, index) => (
             <motion.div
@@ -67,7 +100,7 @@ export default function Timeline() {
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              transition={{ duration: 0.6, delay: index * 0.12 }}
               className="relative mb-10 pl-10 group"
             >
               {/* Dot */}
@@ -76,7 +109,10 @@ export default function Timeline() {
               ></div>
 
               {/* Card */}
-              <div className="bg-[#111] p-5 rounded-xl shadow-md border border-gray-800 hover:shadow-indigo-500/20 transition-all duration-300">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-[#111] p-5 rounded-xl shadow-md border border-gray-800 hover:border-indigo-500/30 transition-all duration-300"
+              >
                 <div className="flex items-center gap-3 mb-2">
                   {item.icon}
                   <h3 className="text-xl font-semibold text-white">
@@ -85,7 +121,7 @@ export default function Timeline() {
                 </div>
                 <p className="text-gray-400 text-sm mb-1 italic">{item.year}</p>
                 <p className="text-gray-300">{item.description}</p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

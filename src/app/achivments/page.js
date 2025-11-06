@@ -1,8 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 import { Award, Cloud, Briefcase, Trophy, Code } from "lucide-react";
+import Image from "next/image";
 
-export default function AchievementsPage() {
+export default function AchievementsAndCertificatesPage() {
   const achievements = [
     {
       icon: <Cloud className="w-7 h-7 text-cyan-400" />,
@@ -51,17 +52,55 @@ export default function AchievementsPage() {
     },
   ];
 
+  const certificates = [
+    {
+      image: "/images/certs/aws-cloud.png",
+      title: "AWS Cloud Practitioner Essentials",
+      issuer: "AWS",
+      date: "2024",
+      link: "https://www.linkedin.com/posts/amitkumar8112_aws-cloud-practitioner-essentials-certificate-activity-7380685786373017601-zcbj",
+    },
+    {
+      image: "/images/certs/deloitte.png",
+      title: "Deloitte Virtual Internship",
+      issuer: "Deloitte",
+      date: "2024",
+      link: "https://www.linkedin.com/posts/amitkumar8112_deloitte-activity-7345695799479029760-p-Ky",
+    },
+    {
+      image: "/images/certs/ml.png",
+      title: "Machine Learning Certification – Skillected",
+      issuer: "Skillected",
+      date: "2024",
+      link: "https://www.linkedin.com/posts/amitkumar8112_machinelearning-skillected-learning-activity-7322280229261955072-uvuD",
+    },
+    {
+      image: "/images/certs/fullstack.png",
+      title: "Full Stack Development",
+      issuer: "TechCamp / LinkedIn",
+      date: "2024",
+      link: "https://www.linkedin.com/posts/amitkumar8112_full-stack-development-activity-7319745216976953344-t5FQ",
+    },
+    {
+      image: "/images/certs/android.png",
+      title: "Android Development – TechCamp",
+      issuer: "EduSkill / AICTE",
+      date: "2024",
+      link: "https://www.linkedin.com/posts/amitkumar8112_androiddevelopment-techcamp-eduskill-activity-7279162482529607681-1Teu",
+    },
+  ];
+
   return (
     <section className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 py-20">
-      <div className="max-w-5xl mx-auto text-center">
-        {/* Header */}
+      <div className="max-w-6xl mx-auto text-center">
+        {/* ===== HEADER ===== */}
         <motion.h1
           className="text-4xl md:text-6xl font-bold mb-6"
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          My <span className="text-indigo-400">Achievements</span> 🏆
+          My <span className="text-indigo-400">Achievements & Certificates</span> 🏆
         </motion.h1>
 
         <motion.p
@@ -70,12 +109,20 @@ export default function AchievementsPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          These achievements represent my learning milestones, innovation, and dedication to
-          advancing technology through practical and impactful projects.
+          A collection of my professional milestones, certifications, and technical achievements
+          that showcase growth, learning, and innovation.
         </motion.p>
 
-        {/* Timeline Layout */}
-        <div className="relative border-l border-gray-700 ml-6 space-y-12">
+        {/* ===== ACHIEVEMENTS TIMELINE ===== */}
+        <motion.h2
+          className="text-3xl font-semibold text-indigo-400 mb-10 text-left"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          🏅 Achievements
+        </motion.h2>
+
+        <div className="relative border-l border-gray-700 ml-6 space-y-12 mb-24">
           {achievements.map((item, index) => (
             <motion.div
               key={index}
@@ -85,12 +132,10 @@ export default function AchievementsPage() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className="relative pl-10"
             >
-              {/* Timeline Dot */}
               <div
                 className={`absolute -left-3 top-1 w-6 h-6 rounded-full bg-gradient-to-br ${item.color} shadow-lg`}
               ></div>
 
-              {/* Achievement Card */}
               <motion.div
                 whileHover={{ scale: 1.03, y: -4 }}
                 transition={{ type: "spring", stiffness: 150 }}
@@ -113,6 +158,50 @@ export default function AchievementsPage() {
                 </a>
               </motion.div>
             </motion.div>
+          ))}
+        </div>
+
+        {/* ===== CERTIFICATES GRID ===== */}
+        <motion.h2
+          className="text-3xl font-semibold text-indigo-400 mb-10 text-left"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          🎓 Certificates
+        </motion.h2>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {certificates.map((cert, i) => (
+            <motion.a
+              key={i}
+              href={cert.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="group bg-[#111] border border-gray-800 hover:border-indigo-400/40 rounded-xl overflow-hidden shadow-md hover:shadow-indigo-500/20 transition-all"
+            >
+              <div className="relative h-40 bg-black flex items-center justify-center">
+                {cert.image ? (
+                  <Image
+                    src={cert.image}
+                    alt={cert.title}
+                    width={180}
+                    height={120}
+                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="text-gray-500 text-sm">Certificate Preview</div>
+                )}
+              </div>
+              <div className="p-5 text-left">
+                <h3 className="text-xl font-semibold mb-1">{cert.title}</h3>
+                <p className="text-gray-400 text-sm mb-2">
+                  {cert.issuer} • {cert.date}
+                </p>
+                <p className="text-indigo-400 text-sm font-medium">🔗 View on LinkedIn</p>
+              </div>
+            </motion.a>
           ))}
         </div>
       </div>
