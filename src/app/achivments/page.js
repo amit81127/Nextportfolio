@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Award, Cloud, Briefcase, Trophy, Code } from "lucide-react";
 import Image from "next/image";
+import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 
 export default function AchievementsAndCertificatesPage() {
   const achievements = [
@@ -10,45 +11,60 @@ export default function AchievementsAndCertificatesPage() {
       title: "Google Cloud Arcade Legend",
       date: "2024",
       description:
-        "Earned the Arcade Legend badge by completing advanced Google Cloud labs in compute, networking, and storage — demonstrating proficiency in cloud infrastructure and DevOps practices.",
+        "Completed advanced Google Cloud labs in compute, networking, and storage.",
       link: "https://www.linkedin.com/posts/amit-kumar-55a070275_googlecloud-arcadelegend-cloudcomputing-activity-7351547968086298626-5WR1",
-      color: "from-cyan-500 to-blue-500",
+      canvasColors: [
+        [34, 211, 238],
+        [59, 130, 246],
+      ],
     },
     {
       icon: <Briefcase className="w-7 h-7 text-yellow-400" />,
-      title: "Deloitte Technology Consulting Virtual Internship",
+      title: "Deloitte Virtual Internship",
       date: "2024",
       description:
-        "Completed Deloitte’s technology consulting virtual internship focused on client problem-solving, data-driven insights, and solution implementation using business technology frameworks.",
+        "Completed Deloitte’s consulting internship using data-driven client solutions.",
       link: "https://www.linkedin.com/posts/amit-kumar-55a070275_deloitte-activity-7345695799479029760-SkrN",
-      color: "from-yellow-500 to-orange-500",
+      canvasColors: [
+        [234, 179, 8],
+        [249, 115, 22],
+      ],
     },
     {
       icon: <Trophy className="w-7 h-7 text-pink-400" />,
       title: "3rd Position – Gandhi Giri Tech Fest",
       date: "2024",
       description:
-        "Won 3rd place for innovation and creativity by developing 'Third Eye for Blind Persons' — an IoT-based assistive device using ultrasonic sensors and Arduino for obstacle detection.",
+        "Developed ‘Third Eye for Blind Persons’ — IoT-based assistive tech using Arduino.",
       link: "https://www.linkedin.com/posts/amit-kumar-55a070275_arduino-iot-innovation-activity-7335041898878361601-2a8B",
-      color: "from-pink-500 to-red-500",
+      canvasColors: [
+        [244, 114, 182],
+        [239, 68, 68],
+      ],
     },
     {
       icon: <Code className="w-7 h-7 text-green-400" />,
-      title: "Oracle Java Foundations Certification",
+      title: "Oracle Java Foundations",
       date: "2024",
       description:
-        "Completed Oracle's Java Foundations course, mastering OOP concepts, data handling, and Java syntax — strengthening backend development fundamentals.",
+        "Mastered OOP and backend logic fundamentals with Oracle Java Foundations.",
       link: "https://www.linkedin.com/posts/amit-kumar-55a070275_oracle-java-foundations-learn-oracle-for-activity-7320037937012686849-tYWF",
-      color: "from-green-500 to-emerald-500",
+      canvasColors: [
+        [34, 197, 94],
+        [16, 185, 129],
+      ],
     },
     {
       icon: <Award className="w-7 h-7 text-purple-400" />,
-      title: "Hackathon Participant – Sparkathon 2025",
+      title: "Hackathon – Sparkathon 2025",
       date: "2025",
       description:
-        "Developed ‘RetailMate: Your Smart Shopping Assistant’ — an AI-powered voice chatbot for intelligent retail experiences using Next.js and OpenAI API integration.",
+        "Built ‘RetailMate’ — AI-powered retail assistant using Next.js and OpenAI API.",
       link: "https://www.linkedin.com/posts/amit-kumar-55a070275_sparkathon-2025-retailmate-aiassistant-activity-7361247391859089408-zGdU",
-      color: "from-purple-500 to-indigo-500",
+      canvasColors: [
+        [168, 85, 247],
+        [79, 70, 229],
+      ],
     },
   ];
 
@@ -69,7 +85,7 @@ export default function AchievementsAndCertificatesPage() {
     },
     {
       image: "/images/certs/ml.png",
-      title: "Machine Learning Certification – Skillected",
+      title: "Machine Learning – Skillected",
       issuer: "Skillected",
       date: "2024",
       link: "https://www.linkedin.com/posts/amitkumar8112_machinelearning-skillected-learning-activity-7322280229261955072-uvuD",
@@ -91,115 +107,132 @@ export default function AchievementsAndCertificatesPage() {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 py-20">
+    <section className="min-h-screen bg-transparent text-white px-6 py-20 relative overflow-hidden">
+      {/* FAST background glow */}
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-indigo-800/40 via-transparent to-black blur-2xl -z-10"
+        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        style={{ backgroundSize: "200% 200%" }}
+      />
+
       <div className="max-w-6xl mx-auto text-center">
-        {/* ===== HEADER ===== */}
         <motion.h1
           className="text-4xl md:text-6xl font-bold mb-6"
-          initial={{ opacity: 0, y: -40 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
         >
           My <span className="text-indigo-400">Achievements & Certificates</span> 🏆
         </motion.h1>
 
         <motion.p
-          className="text-gray-400 text-lg max-w-2xl mx-auto mb-16"
+          className="text-gray-400 text-lg max-w-2xl mx-auto mb-14"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.1, duration: 0.3 }}
         >
-          A collection of my professional milestones, certifications, and technical achievements
-          that showcase growth, learning, and innovation.
+          Fast, fluid, and interactive — a quick tour of my milestones and certifications.
         </motion.p>
 
-        {/* ===== ACHIEVEMENTS TIMELINE ===== */}
+        {/* === Achievements === */}
         <motion.h2
-          className="text-3xl font-semibold text-indigo-400 mb-10 text-left"
+          className="text-3xl font-semibold text-indigo-400 mb-8 text-left"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
           🏅 Achievements
         </motion.h2>
 
-        <div className="relative border-l border-gray-700 ml-6 space-y-12 mb-24">
+        <div className="relative border-l border-gray-800 ml-6 space-y-10 mb-20">
           {achievements.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
               className="relative pl-10"
             >
-              <div
-                className={`absolute -left-3 top-1 w-6 h-6 rounded-full bg-gradient-to-br ${item.color} shadow-lg`}
-              ></div>
+              <div className="absolute -left-3 top-1 w-6 h-6 rounded-full bg-indigo-500 shadow-lg" />
 
-              <motion.div
-                whileHover={{ scale: 1.03, y: -4 }}
-                transition={{ type: "spring", stiffness: 150 }}
-                className="bg-[#111] p-6 rounded-xl shadow-md hover:shadow-indigo-500/30 border border-gray-800 hover:border-indigo-400/40 transition-all duration-500"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  {item.icon}
-                  <h2 className="text-2xl font-semibold">{item.title}</h2>
+              <div className="relative group">
+                {/* Ultra-fast canvas reveal */}
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <CanvasRevealEffect
+                    colors={item.canvasColors}
+                    animationSpeed={10}   // 🚀 very fast
+                    dotSize={0.6}
+                    followMouse
+                  />
                 </div>
-                <p className="text-sm text-gray-400 mb-2">{item.date}</p>
-                <p className="text-gray-300 mb-3">{item.description}</p>
 
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors"
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 12 }}
+                  className="relative bg-[#0a0a0a]/80 p-5 rounded-xl border border-gray-800 hover:border-indigo-400/40 shadow-lg backdrop-blur-sm z-10 transition-all duration-200"
                 >
-                  🔗 View on LinkedIn
-                </a>
-              </motion.div>
+                  <div className="flex items-center gap-3 mb-2">
+                    {item.icon}
+                    <h2 className="text-xl font-semibold">{item.title}</h2>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-1">{item.date}</p>
+                  <p className="text-gray-300 mb-2 text-sm leading-relaxed">
+                    {item.description}
+                  </p>
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors"
+                  >
+                    🔗 View on LinkedIn
+                  </a>
+                </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* ===== CERTIFICATES GRID ===== */}
+        {/* === Certificates === */}
         <motion.h2
-          className="text-3xl font-semibold text-indigo-400 mb-10 text-left"
+          className="text-3xl font-semibold text-indigo-400 mb-8 text-left"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
           🎓 Certificates
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {certificates.map((cert, i) => (
             <motion.a
               key={i}
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="group bg-[#111] border border-gray-800 hover:border-indigo-400/40 rounded-xl overflow-hidden shadow-md hover:shadow-indigo-500/20 transition-all"
+              whileHover={{ scale: 1.04 }}
+              transition={{ duration: 0.15 }}
+              className="group bg-[#111]/70 border border-gray-800 hover:border-indigo-400/40 rounded-xl overflow-hidden shadow-md hover:shadow-indigo-500/20 transition-all backdrop-blur-sm"
             >
-              <div className="relative h-40 bg-black flex items-center justify-center">
+              <div className="h-36 bg-black flex items-center justify-center">
                 {cert.image ? (
                   <Image
                     src={cert.image}
                     alt={cert.title}
-                    width={180}
-                    height={120}
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    width={160}
+                    height={100}
+                    className="object-contain p-3 group-hover:scale-105 transition-transform duration-150"
                   />
                 ) : (
                   <div className="text-gray-500 text-sm">Certificate Preview</div>
                 )}
               </div>
-              <div className="p-5 text-left">
-                <h3 className="text-xl font-semibold mb-1">{cert.title}</h3>
-                <p className="text-gray-400 text-sm mb-2">
+              <div className="p-4 text-left">
+                <h3 className="text-lg font-semibold mb-1">{cert.title}</h3>
+                <p className="text-gray-400 text-xs mb-1">
                   {cert.issuer} • {cert.date}
                 </p>
-                <p className="text-indigo-400 text-sm font-medium">🔗 View on LinkedIn</p>
+                <p className="text-indigo-400 text-xs font-medium">🔗 View on LinkedIn</p>
               </div>
             </motion.a>
           ))}

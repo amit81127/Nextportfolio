@@ -15,8 +15,22 @@ export default function Projects() {
       : projectsData.filter((p) => p.category === filter);
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 md:px-20 py-20">
-      {/* Header */}
+    <section className="min-h-screen bg-transparent text-white px-6 md:px-20 py-20 relative overflow-hidden">
+      {/* === Animated Glow Background === */}
+      <motion.div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-indigo-900/40 via-transparent to-black/80 blur-3xl -z-10"
+        animate={{
+          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        style={{ backgroundSize: "200% 200%" }}
+      />
+
+      {/* === Header === */}
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: -20 }}
@@ -27,11 +41,13 @@ export default function Projects() {
           My <span className="text-indigo-400">Projects</span> 🚀
         </h1>
         <p className="text-gray-400 mt-3 text-lg max-w-2xl mx-auto">
-          A curated collection of projects that reflect my creativity, problem-solving, and full-stack expertise — spanning web, IoT, AI, and hackathons.
+          A curated collection of projects that reflect my creativity,
+          problem-solving, and full-stack expertise — spanning Web, IoT, AI, and
+          Hackathons.
         </p>
       </motion.div>
 
-      {/* Filter Buttons */}
+      {/* === Filter Buttons === */}
       <motion.div
         className="flex flex-wrap justify-center gap-3 mb-12"
         initial={{ opacity: 0 }}
@@ -55,7 +71,7 @@ export default function Projects() {
         ))}
       </motion.div>
 
-      {/* Project Grid */}
+      {/* === Project Grid === */}
       <motion.div
         className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
         initial={{ opacity: 0 }}
@@ -77,7 +93,7 @@ export default function Projects() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Fallback if no project matches filter */}
+      {/* === Fallback === */}
       {filteredProjects.length === 0 && (
         <motion.p
           initial={{ opacity: 0 }}

@@ -1,6 +1,7 @@
 "use client";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { Github, Globe } from "lucide-react";
+import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 
 export default function ProjectCard({ project }) {
   // Motion tilt effect
@@ -29,10 +30,23 @@ export default function ProjectCard({ project }) {
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      className="relative bg-[#0f0f12] rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-indigo-500/40 group"
+      className="relative bg-[#0f0f12]/80 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-indigo-500/40 group backdrop-blur-md"
     >
-      {/* Image Section */}
-      <div className="relative w-full h-48 overflow-hidden rounded-t-2xl">
+      {/* ===== Canvas Reveal Background ===== */}
+      <div className="absolute inset-0 z-0">
+        <CanvasRevealEffect
+          animationSpeed={4}
+          colors={[
+            [147, 51, 234], // purple
+            [59, 130, 246], // blue
+            [236, 72, 153], // pink
+          ]}
+          dotSize={1.2}
+        />
+      </div>
+
+      {/* ===== Image Section ===== */}
+      <div className="relative w-full h-48 overflow-hidden rounded-t-2xl z-10">
         <motion.img
           src={project.image}
           alt={project.title}
@@ -41,8 +55,8 @@ export default function ProjectCard({ project }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-70"></div>
       </div>
 
-      {/* Content Section */}
-      <div className="p-5 flex flex-col justify-between">
+      {/* ===== Content Section ===== */}
+      <div className="p-5 flex flex-col justify-between z-10 relative">
         <h2 className="text-xl font-semibold text-white mb-2 group-hover:text-indigo-400 transition-colors">
           {project.title}
         </h2>
@@ -90,11 +104,11 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
 
-      {/* Hover Glow Border */}
+      {/* ===== Hover Glow Border ===== */}
       <motion.div
         className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-500/20 to-purple-500/10 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"
-        style={{ zIndex: -1 }}
-      ></motion.div>
+        style={{ zIndex: 1 }}
+      />
     </motion.div>
   );
 }

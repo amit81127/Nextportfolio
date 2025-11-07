@@ -1,13 +1,15 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Github, Linkedin } from "lucide-react";
+import gsap from "gsap";
+import Balancer from "react-wrap-balancer";
+import { Vortex } from "@/components/ui/vortex"; // ✅ new vortex effect
 
-// ===== Interactive Mouse Parallax Hook =====
-function useMouseParallax(strength = 30) {
+// =================== Parallax Hook ===================
+const useParallax = (strength = 15) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const rotateX = useSpring(useTransform(y, [-1, 1], [strength, -strength]), {
     stiffness: 100,
     damping: 20,
@@ -26,144 +28,205 @@ function useMouseParallax(strength = 30) {
   };
 
   return { rotateX, rotateY, onMouseMove };
-}
+};
 
+// =================== Animated Name ===================
+const AnimatedName = ({ text }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const letters = ref.current?.querySelectorAll(".letter");
+    if (!letters) return;
+
+    letters.forEach((letter) => {
+      letter.addEventListener("mouseenter", () => {
+        gsap.to(letter, {
+          color: "#fff",
+          textShadow: "0 0 25px #ffffff, 0 0 60px #9d4edd",
+          scale: 1.35,
+          duration: 0.2,
+          ease: "power2.out",
+        });
+
+        gsap.to(letter, {
+          color: "#9ca3af",
+          textShadow: "none",
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power3.out",
+        });
+      });
+    });
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="flex flex-wrap justify-center gap-2 md:gap-3 select-none cursor-default"
+    >
+      {text.split(" ").map((word, wi) => (
+        <div key={wi} className="flex">
+          {word.split("").map((ch, i) => (
+            <motion.span
+              key={i}
+              className="letter text-5xl md:text-7xl font-extrabold uppercase text-gray-400 hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.35 }}
+            >
+              {ch}
+            </motion.span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// =================== Floating Particles ===================
+const FloatingParticles = () => {
+  const [particles, setParticles] = useState([]);
+  useEffect(() => {
+    const arr = Array.from({ length: 25 }, () => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      delay: Math.random() * 2,
+      duration: 3 + Math.random() * 3,
+    }));
+    setParticles(arr);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden -z-10">
+      {particles.map((p, i) => (
+        <motion.span
+          key={i}
+          className="absolute w-1.5 h-1.5 bg-white/30 rounded-full"
+          style={{ top: p.top, left: p.left }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [0.2, 1, 0.2],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: p.duration,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// =================== Hero Section ===================
 export default function HeroSection() {
-  const { rotateX, rotateY, onMouseMove } = useMouseParallax(10);
+  const { rotateX, rotateY, onMouseMove } = useParallax(10);
 
   return (
     <section
       onMouseMove={onMouseMove}
-      className="relative flex flex-col items-center justify-center text-center min-h-[100vh] overflow-hidden bg-gradient-to-b from-[#05051a] to-[#0d0d25] text-white px-6 md:px-12"
+      className="relative flex flex-col items-center justify-center w-full min-h-screen text-center overflow-hidden text-white"
     >
-      {/* ===== Animated Background ===== */}
-      <motion.div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Central glow */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4 }}
-          transition={{ duration: 1.5 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[800px] bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-full blur-[160px]"
-          style={{ mixBlendMode: "screen" }}
-        />
+      {/* ======= Vortex Background ======= */}
+      <Vortex
+        backgroundColor="transparent"
+        rangeY={100}
+        particleCount={70}
+        baseHue={240}
+        size={4}
+        speed={1.3}
+        amplitude={0.6}
+        className="absolute inset-0 -z-10"
+      />
 
-        {/* Subtle moving light pattern */}
-        <motion.div
-          animate={{ x: [-40, 40, -40], y: [-30, 30, -30] }}
-          transition={{ repeat: Infinity, duration: 18, ease: "easeInOut" }}
-          className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.1),transparent_70%),radial-gradient(circle_at_70%_80%,rgba(236,72,153,0.1),transparent_70%)]"
-        />
-      </motion.div>
+      {/* ======= Floating Particles ======= */}
+      <FloatingParticles />
 
-      {/* ===== Header Content ===== */}
+      {/* ======= Profile Image ======= */}
       <motion.div
         style={{ rotateX, rotateY }}
-        className="relative z-10 max-w-5xl mx-auto flex flex-col items-center"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 150, damping: 15 }}
+        className="w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-[0_0_60px_rgba(255,255,255,0.3)] mb-6 relative z-10"
       >
-        {/* Profile Photo */}
-        <motion.div
-          whileHover={{ scale: 1.05, rotate: 2 }}
-          transition={{ type: "spring", stiffness: 120 }}
-          className="w-36 h-36 mb-6 rounded-full overflow-hidden border-4 border-indigo-500 shadow-[0_0_40px_rgba(99,102,241,0.4)]"
-        >
-          <img
-            src="/1758435757365.jpeg"
-            alt="Amit Kumar"
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-
-        {/* Name */}
-        <motion.h1
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="text-5xl md:text-6xl font-extrabold mb-3"
-        >
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent animate-gradient-x">
-            Amit Kumar Prasad
-          </span>
-        </motion.h1>
-
-        {/* Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4 }}
-          className="text-xl md:text-2xl text-gray-300 font-medium"
-        >
-          Full Stack Developer | Cloud Enthusiast | Innovator
-        </motion.h2>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.6 }}
-          className="mt-5 text-gray-400 max-w-2xl text-lg leading-relaxed"
-        >
-          Crafting modern, scalable, and impactful digital experiences using{" "}
-          <span className="text-indigo-400 font-semibold">
-            React.js, Node.js, Next.js, MongoDB & Cloud Technologies.
-          </span>{" "}
-          Passionate about innovation, clean architecture, and continuous
-          learning.
-        </motion.p>
-
-        {/* Social Media Only */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="mt-8 flex items-center justify-center gap-6"
-        >
-          <a
-            href="https://github.com/amit81127"
-            target="_blank"
-            rel="noreferrer"
-            className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <Github className="w-5 h-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/amit-kumar-55a070275/"
-            target="_blank"
-            rel="noreferrer"
-            className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <Linkedin className="w-5 h-5" />
-          </a>
-        </motion.div>
+        <img
+          src="/1758435757365.jpeg"
+          alt="Amit Kumar Prasad"
+          className="w-full h-full object-cover"
+        />
       </motion.div>
 
-      {/* ===== Floating Tech Icons ===== */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        {[
-          { src: "/images/tech/react.svg", top: "20%", left: "10%" },
-          { src: "/images/tech/nodejs.svg", top: "60%", left: "5%" },
-          { src: "/images/tech/js.svg", top: "70%", right: "10%" },
-          { src: "/images/tech/mongodb.svg", top: "30%", right: "15%" },
-          { src: "/images/tech/sql.svg", bottom: "10%", right: "40%" },
-          { src: "/images/tech/java.svg", top: "40%", left: "50%" },
-        ].map((icon, i) => (
-          <motion.img
-            key={i}
-            src={icon.src}
-            alt="tech icon"
-            className="w-10 h-10 opacity-60 absolute"
-            style={{ ...icon }}
-            animate={{
-              y: [0, -15, 0],
-              rotate: [0, 10, -10, 0],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 6 + i * 0.8,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      {/* ======= Animated Name ======= */}
+      <AnimatedName text="Amit Kumar Prasad" />
+
+      {/* ======= Subtitle ======= */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.4 }}
+        className="mt-5 text-lg md:text-2xl text-gray-400 font-medium"
+      >
+        <Balancer>
+          Full Stack Developer • Cloud Enthusiast • Innovator
+        </Balancer>
+      </motion.h2>
+
+      {/* ======= Description ======= */}
+      <motion.p
+        initial={{ opacity: 0, y: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="mt-4 text-gray-300 max-w-2xl text-lg leading-relaxed px-6"
+      >
+        <Balancer>
+          I build dynamic, scalable, and interactive web experiences using{" "}
+          <span className="text-white font-semibold">
+            Next.js, React.js, Node.js, and Cloud Infrastructure
+          </span>
+          . Focused on innovation, performance, and immersive digital design.
+        </Balancer>
+      </motion.p>
+
+      {/* ======= Social Icons ======= */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="mt-8 flex items-center justify-center gap-6"
+      >
+        <a
+          href="https://github.com/amit81127"
+          target="_blank"
+          rel="noreferrer"
+          className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
+        >
+          <Github className="w-5 h-5" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/amit-kumar-55a070275/"
+          target="_blank"
+          rel="noreferrer"
+          className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
+        >
+          <Linkedin className="w-5 h-5" />
+        </a>
+      </motion.div>
+
+      {/* ======= Background Title ======= */}
+      <motion.h1
+        aria-hidden
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.06 }}
+        transition={{ delay: 1 }}
+        className="absolute text-[10rem] md:text-[16rem] font-extrabold uppercase text-gray-700/10 select-none pointer-events-none"
+        style={{
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        AMIT
+      </motion.h1>
     </section>
   );
 }
