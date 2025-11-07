@@ -16,7 +16,7 @@ export const projectsData = [
       "A front-end clone of the Zerodha trading platform featuring interactive UI components, smooth animations, and modern design.",
     image: "https://media.licdn.com/dms/image/v2/D4D12AQGJnj8j3sb2TQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1683270116246?e=2147483647&v=beta&t=0hngQS7EJ8BGU-xaCZgNvN-oAYUfOXGrvlJDJRoD3rw",
     tech: ["React", "Node.js","MongoDb", "JavaScript"],
-    github: "https://github.com/amit81127/zerodha-clone",
+    github: "https://github.com/amit81127/Zarodha-Clone",
     demo: "https://zerodha-clone-demo.vercel.app",
   },
   {
