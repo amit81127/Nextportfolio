@@ -1,5 +1,5 @@
-import { connectDB } from "../../../../api/db/connect";
-import Blog from "../../../../api/db/models/Blog";
+import { connectDB } from "@/app/api/db/connect";
+import Blog from "@/app/api/db/models/Blog";
 import Link from "next/link";
 
 async function getBlog(slug) {

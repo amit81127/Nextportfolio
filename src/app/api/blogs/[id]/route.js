@@ -1,5 +1,5 @@
-import { connectDB } from "../../../db/connect";
-import Blog from "../../../db/models/Blog";
+import { connectDB } from "@/app/api/db/connect";
+import Blog from "@/app/api/db/models/Blog";
 
 export async function DELETE(request, { params }) {
   try {

@@ -1,5 +1,5 @@
-import { connectDB } from "../../../db/connect";
-import Certificate from "../../../db/models/Certificate";
+import { connectDB } from "@/app/api/db/connect";
+import Certificate from "@/app/api/db/models/Certificate";
 
 export async function DELETE(request, { params }) {
   try {
