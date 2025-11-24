@@ -52,3 +52,4 @@ Access the admin panel at `/admin` to manage projects.
 - `src/app/admin`: Admin dashboard and management pages
 - `src/app/api`: Backend API routes
 - `src/components`: Reusable UI components
+deploy

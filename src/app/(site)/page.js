@@ -17,9 +17,7 @@ export default function Home() {
     fetch("/api/projects")
       .then((res) => res.json())
       .then((data) => {
-        // Map API data to ProjectCard props if needed, or ensure API returns compatible structure
-        // Assuming API returns array of objects compatible with ProjectCard
-        // We need to map the API response to match ProjectCard expectations
+        // Map API data to ProjectCard props
         const formattedProjects = data.map(p => ({
           id: p._id,
           title: p.title,
