@@ -2,24 +2,72 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function AdminDashboard() {
+  const [stats, setStats] = useState({
+    projects: 0,
+    certificates: 0,
+    blogs: 0,
+    messages: 0
+  });
+  const [health, setHealth] = useState("checking"); // checking, healthy, error
+
+  useEffect(() => {
+    // Check API Health
+    fetch("/api/projects")
+      .then(res => {
+        if (res.ok) setHealth("healthy");
+        else setHealth("error");
+        return res.json();
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setStats(prev => ({ ...prev, projects: data.length }));
+        }
+      })
+      .catch(() => setHealth("error"));
+      
+    // Mock other stats for now (or fetch if APIs exist)
+    // In a real app, you'd have a specific /api/stats endpoint
+  }, []);
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       className="max-w-5xl mx-auto"
     >
-      <header className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">Welcome to your Admin Dashboard</h1>
-        <p className="text-xl text-gray-400">The control center of your entire portfolio.</p>
+      <header className="mb-12 flex justify-between items-end">
+        <div>
+          <h1 className="text-4xl font-bold mb-4">Welcome to your Admin Dashboard</h1>
+          <p className="text-xl text-gray-400">The control center of your entire portfolio.</p>
+        </div>
+        
+        {/* System Status Indicator */}
+        <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${
+          health === "healthy" ? "border-green-500/30 bg-green-500/10 text-green-400" : 
+          health === "checking" ? "border-yellow-500/30 bg-yellow-500/10 text-yellow-400" : 
+          "border-red-500/30 bg-red-500/10 text-red-400"
+        }`}>
+          <div className={`w-2 h-2 rounded-full ${
+            health === "healthy" ? "bg-green-500 animate-pulse" : 
+            health === "checking" ? "bg-yellow-500" : 
+            "bg-red-500"
+          }`} />
+          <span className="text-sm font-medium">
+            {health === "healthy" ? "System Operational" : 
+             health === "checking" ? "Checking System..." : 
+             "System Issues Detected"}
+          </span>
+        </div>
       </header>
 
       {/* Quick Actions Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         <DashboardCard 
           title="Projects" 
-          desc="Manage portfolio projects"
+          desc={`${stats.projects} Active Projects`}
           link="/admin/projects"
           icon="🚀"
           color="border-blue-500/20 hover:border-blue-500/50"

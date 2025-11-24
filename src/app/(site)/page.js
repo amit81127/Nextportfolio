@@ -2,12 +2,14 @@
 import { motion } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import ProjectCard from "@/components/ProjectCard";
-import SkillCards from "@/components/SkillCards";
-import Timeline from "@/components/Timeline";
-import TestimonialCard from "@/components/TestimonialCard";
 import StructuredData from "@/components/StructuredData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const SkillCards = dynamic(() => import("@/components/SkillCards"), { ssr: false });
+const Timeline = dynamic(() => import("@/components/Timeline"), { ssr: false });
+const TestimonialCard = dynamic(() => import("@/components/TestimonialCard"), { ssr: false });
 
 export default function Home() {
   const [projects, setProjects] = useState([]);

@@ -89,21 +89,22 @@ export const metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-  ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
   verification: {
     // Add your verification codes when available
     // google: "your-google-verification-code",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({ children }) {

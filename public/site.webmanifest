@@ -1,0 +1,21 @@
+{
+    "name": "Amit Kumar Prasad Portfolio",
+    "short_name": "Amit Portfolio",
+    "icons": [
+        {
+            "src": "/9be4260c5a4e2adad1cc00db8cf71785.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "/9be4260c5a4e2adad1cc00db8cf71785.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}

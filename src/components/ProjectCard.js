@@ -1,5 +1,6 @@
 "use client";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import Image from "next/image";
 import { Github, Globe } from "lucide-react";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 
@@ -22,6 +23,21 @@ export default function ProjectCard({ project }) {
     x.set(0);
     y.set(0);
   }
+
+  // Helper to validate image URL
+  const getValidImageSrc = (src) => {
+    if (!src || typeof src !== 'string') return "/9be4260c5a4e2adad1cc00db8cf71785.jpg";
+    if (src.startsWith("/")) return src;
+    if (src.startsWith("http://") || src.startsWith("https://")) {
+      try {
+        new URL(src);
+        return src;
+      } catch (e) {
+        return "/9be4260c5a4e2adad1cc00db8cf71785.jpg";
+      }
+    }
+    return "/9be4260c5a4e2adad1cc00db8cf71785.jpg";
+  };
 
   return (
     <motion.div
@@ -47,11 +63,15 @@ export default function ProjectCard({ project }) {
 
       {/* ===== Image Section ===== */}
       <div className="relative w-full h-48 overflow-hidden rounded-t-2xl z-10">
-        <motion.img
-          src={project.image}
-          alt={project.title}
-          className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-        />
+        <div className="relative w-full h-full group-hover:scale-110 transition-transform duration-700">
+             <Image
+              src={getValidImageSrc(project.image)}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-70"></div>
       </div>
 

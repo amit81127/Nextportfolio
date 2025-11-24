@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 import { motion } from "framer-motion";
 import { Upload, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function AddCertificatePage() {
+  const [mounted, setMounted] = useState(false);
   const [form, setForm] = useState({
     title: "",
     issuer: "",
@@ -17,6 +18,11 @@ export default function AddCertificatePage() {
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ type: "", text: "" });
+
+  // Prevent hydration errors from browser extensions
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -65,6 +71,8 @@ export default function AddCertificatePage() {
       setLoading(false);
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <motion.div 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 import { motion } from "framer-motion";
@@ -8,6 +8,7 @@ import { Upload, CheckCircle, AlertCircle, Rocket } from "lucide-react";
 
 export default function AddProjectPage() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -20,6 +21,11 @@ export default function AddProjectPage() {
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState({ type: "", text: "" });
+
+  // Prevent hydration errors
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -66,6 +72,8 @@ export default function AddProjectPage() {
       setLoading(false);
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <motion.div 
