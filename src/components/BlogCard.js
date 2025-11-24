@@ -1,16 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 import { CalendarDays, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export default function BlogCard({ title, description, image, link, date }) {
-  return (
-    <motion.a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
+  const isInternal = link.startsWith("/");
+
+  const CardContent = (
+    <motion.div
       whileHover={{ scale: 1.05, y: -6 }}
       transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      className="group relative overflow-hidden rounded-2xl bg-[#111] border border-gray-800 hover:border-indigo-500/40 transition-all duration-500 shadow-md hover:shadow-indigo-500/20"
+      className="group relative overflow-hidden rounded-2xl bg-[#111] border border-gray-800 hover:border-indigo-500/40 transition-all duration-500 shadow-md hover:shadow-indigo-500/20 h-full"
     >
       {/* Image */}
       <div className="relative h-48 w-full overflow-hidden rounded-t-2xl">
@@ -31,12 +31,22 @@ export default function BlogCard({ title, description, image, link, date }) {
         <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-indigo-400 transition-colors">
           {title}
         </h3>
-        <p className="text-gray-400 text-sm mb-4 leading-relaxed">{description}</p>
+        <p className="text-gray-400 text-sm mb-4 leading-relaxed line-clamp-3">{description}</p>
 
         <div className="flex items-center text-indigo-400 text-sm font-medium gap-1 hover:gap-2 transition-all duration-300">
           Read More <ArrowUpRight className="w-4 h-4" />
         </div>
       </div>
-    </motion.a>
+    </motion.div>
+  );
+
+  if (isInternal) {
+    return <Link href={link} className="block h-full">{CardContent}</Link>;
+  }
+
+  return (
+    <a href={link} target="_blank" rel="noopener noreferrer" className="block h-full">
+      {CardContent}
+    </a>
   );
 }

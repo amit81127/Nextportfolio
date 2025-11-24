@@ -21,10 +21,25 @@ export default function ContactForm() {
     }
 
     setStatus("Sending...");
-    setTimeout(() => {
-      setStatus("✅ Message sent successfully!");
-      setForm({ name: "", email: "", message: "" });
-    }, 1500);
+    
+    // Send to API
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    })
+      .then((res) => {
+        if (res.ok) {
+          setStatus("✅ Message sent successfully!");
+          setForm({ name: "", email: "", message: "" });
+        } else {
+          setStatus("❌ Failed to send message.");
+        }
+      })
+      .catch(() => setStatus("❌ Error sending message."))
+      .finally(() => {
+        setTimeout(() => setStatus(""), 3000);
+      });
   };
 
   return (
@@ -41,6 +56,7 @@ export default function ContactForm() {
           value={form.name}
           onChange={handleChange}
           required
+          suppressHydrationWarning
           className="w-full p-3 rounded-md bg-gray-900 text-gray-200 border border-gray-700 focus:border-indigo-400 focus:outline-none"
         />
 
@@ -52,6 +68,7 @@ export default function ContactForm() {
           value={form.email}
           onChange={handleChange}
           required
+          suppressHydrationWarning
           className="w-full p-3 rounded-md bg-gray-900 text-gray-200 border border-gray-700 focus:border-indigo-400 focus:outline-none"
         />
 
@@ -63,6 +80,7 @@ export default function ContactForm() {
           value={form.message}
           onChange={handleChange}
           required
+          suppressHydrationWarning
           className="w-full p-3 rounded-md bg-gray-900 text-gray-200 border border-gray-700 focus:border-indigo-400 focus:outline-none"
         ></textarea>
 
@@ -71,6 +89,7 @@ export default function ContactForm() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           type="submit"
+          suppressHydrationWarning
           className="flex items-center justify-center gap-2 w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 rounded-md font-medium shadow-lg hover:shadow-indigo-500/30 transition-all duration-300"
         >
           <Send className="w-5 h-5" /> Send Message
