@@ -22,7 +22,7 @@ export default function Navbar() {
   const routes = [
     { name: "Home", path: "/", icon: <Home /> },
     { name: "About", path: "/about", icon: <User /> },
-    { name: "Skills", path: "/skills", icon: <Code /> },
+    { name: "skills", path: "/skills", icon: <Code /> },
     { name: "Projects", path: "/projects", icon: <Folder /> },
     { name: "Achievements", path: "/achivments", icon: <Award /> },
     { name: "Blog", path: "/blog", icon: <BookOpen /> },

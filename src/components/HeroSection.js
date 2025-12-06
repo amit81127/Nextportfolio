@@ -210,6 +210,32 @@ export default function HeroSection() {
         >
           <Linkedin className="w-5 h-5" />
         </a>
+        <a
+          href="https://www.skills.google/public_profiles/f4dac392-2615-4312-872a-a4d75deaa0f3"
+          target="_blank"
+          rel="noreferrer"
+          className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
+          title="Google Cloud Skills"
+        >
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" 
+            alt="Google Cloud" 
+            className="w-5 h-5 object-contain"
+          />
+        </a>
+        <a
+          href="https://leetcode.com/u/Amitkumar_8112/"
+          target="_blank"
+          rel="noreferrer"
+          className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
+          title="LeetCode"
+        >
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" 
+            alt="LeetCode" 
+            className="w-5 h-5 object-contain invert"
+          />
+        </a>
       </motion.div>
 
       {/* ======= Background Title ======= */}

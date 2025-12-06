@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourportfolio.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://amitkumar8112.vercel.app/';
   
   const routes = [
     {
