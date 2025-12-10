@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Github, Linkedin } from "lucide-react";
 import gsap from "gsap";
@@ -149,9 +150,11 @@ export default function HeroSection() {
         transition={{ type: "spring", stiffness: 150, damping: 15 }}
         className="w-40 h-40 rounded-full overflow-hidden border-4 border-white/20 shadow-[0_0_60px_rgba(255,255,255,0.3)] mb-6 relative z-10"
       >
-        <img
+        <Image
           src="/1758435757365.jpeg"
           alt="Amit Kumar Prasad"
+          width={160}
+          height={160}
           className="w-full h-full object-cover"
         />
       </motion.div>
@@ -217,9 +220,11 @@ export default function HeroSection() {
           className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
           title="Google Cloud Skills"
         >
-          <img 
+          <Image 
             src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" 
             alt="Google Cloud" 
+            width={20}
+            height={20}
             className="w-5 h-5 object-contain"
           />
         </a>
@@ -230,10 +235,13 @@ export default function HeroSection() {
           className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition hover:scale-110"
           title="LeetCode"
         >
-          <img 
+          <Image 
             src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" 
             alt="LeetCode" 
+            width={20}
+            height={20}
             className="w-5 h-5 object-contain invert"
+            crossOrigin="anonymous"
           />
         </a>
       </motion.div>

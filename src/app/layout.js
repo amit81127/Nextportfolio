@@ -90,8 +90,7 @@ export const metadata = {
   },
   manifest: "/site.webmanifest",
   verification: {
-    // Add your verification codes when available
-    // google: "your-google-verification-code",
+    google: "Em8yCMZBPREjF87abY0B4aSN4h-HNB_yn9sOsq-Qet8",
     // yandex: "your-yandex-verification-code",
     // bing: "your-bing-verification-code",
   },
