@@ -1,7 +1,5 @@
 # 🚀 Next.js Portfolio with MongoDB & AI Integration
 
-![Project Banner](public/9be4260c5a4e2adad1cc00db8cf71785.jpg)
-
 > A high-performance, full-stack portfolio application built with Next.js 14, MongoDB, and Tailwind CSS. Designed for scalability, SEO, and interactive user experiences.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fyour-repo)
