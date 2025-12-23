@@ -1,4 +1,4 @@
-# 🚀 Next.js Portfolio with MongoDB & AI Integration
+# 🚀 Next.js Portfolio with MongoDB 
 
 > A high-performance, full-stack portfolio application built with Next.js 14, MongoDB, and Tailwind CSS. Designed for scalability, SEO, and interactive user experiences.
 
